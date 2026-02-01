@@ -1,11 +1,52 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { Picture } from 'astro:assets';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '@layouts/Layout.astro';
+
+import Logo01 from '@assets/logo-01.jpg';
+import Logo02 from '@assets/logo-02.jpg';
+import WhatNot from '@assets/whatnot.svg';
+import Right from '@assets/right.svg';
+import Instagram from '@assets/instagram.svg';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Soflow Socials">
+	<header class="py-14 px-3">
+		<div class="grid grid-cols-2 gap-5">
+			<Picture src={Logo01} formats={["avif", "webp"]} alt="Logo 01" class="rounded-full object-cover"/>
+			<Picture src={Logo02} formats={["avif", "webp"]} alt="Logo 02" class="rounded-full object-cover"/>
+		</div>
+
+		<div class="py-5 text-center">
+			<h1 class="text-3xl font-bold text-green-700 text-shadow-lg text-shadow-green-400">Soflow Socials</h1>
+			<span class="uppercase text-xl font-bold inline-block text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-green-700">Elevate your senses</span>  
+		</div>
+	</header>
+
+	<section>
+		<ul class="flex flex-col items-center gap-5">
+			{
+				[
+					{url: 'https://www.whatnot.com/s/ZKXxcnmz', icon: WhatNot, label: 'WhatNot'},
+					{url: 'https://www.instagram.com/soflo_smokeshop_305?igsh=M2xzZDc1cWQ3dXFl&utm_source=qr', icon: Instagram, label: '@soflo_smokeshop_305'},
+					{url: 'https://www.instagram.com/soflo.onestopshop?igsh=Z2c1bGg2OTFxOTJy&utm_source=qr', icon: Instagram, label: '@soflo.onestopshop'},
+				].map(({url, icon: Icon, label}, index)=> (
+					<li>
+						<a href={url} target="_blank" class:list={[
+								"inline-flex justify-between items-center w-72 px-3 py-2 font-bold bg-linear-to-r rounded-xl shadow-[0px_3px_0px] active:scale-95 active:shadow-[0px_2px_0px] transition-[scale_shadow]",
+								{"from-orange-400 to-orange-600 shadow-orange-300": index === 0},
+								{"from-green-500 to-green-700 shadow-green-400": index === 1},
+								{"from-purple-500 to-purple-700 shadow-purple-400": index === 2}
+							]}>
+							<span class="inline-flex items-center gap-3"><Icon class="size-8 rounded-xl"/>{label}</span> <Right class=""/>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<footer class="py-3">
+		<p class="text-center">© 2026 Soflow Smoke Shop</p>
+	</footer>
 </Layout>
